@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kikscord — Stock Admin</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#070d14;color:#e8f4ff;font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .card{background:#0d1828;border:1px solid rgba(56,189,248,0.15);border-radius:20px;padding:36px;width:100%;max-width:480px;box-shadow:0 0 60px rgba(56,189,248,0.08);}
+  .logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;}
+  .logo-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#38bdf8,#0ea5e9);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;}
+  .logo span{font-size:18px;font-weight:800;}
+  .logo small{font-size:12px;color:#6a8fab;background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);padding:2px 8px;border-radius:100px;margin-left:6px;}
+  h2{font-size:14px;color:#6a8fab;text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px;font-family:'Courier New',monospace;}
+  .field{margin-bottom:18px;}
+  .field label{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#9bbdd4;margin-bottom:8px;}
+  .field label b{color:#e8f4ff;font-size:14px;}
+  .field label .price{font-family:'Courier New',monospace;font-size:11px;background:rgba(56,189,248,0.1);color:#38bdf8;padding:2px 8px;border-radius:6px;}
+  .field input{width:100%;background:#112035;border:1px solid rgba(56,189,248,0.15);border-radius:10px;padding:12px 16px;color:#e8f4ff;font-size:20px;font-weight:700;font-family:'Courier New',monospace;outline:none;transition:border-color .15s;}
+  .field input:focus{border-color:#38bdf8;box-shadow:0 0 0 3px rgba(56,189,248,0.1);}
+  .stock-preview{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-family:'Courier New',monospace;padding:3px 9px;border-radius:6px;margin-top:6px;}
+  .stock-preview.in{background:rgba(35,209,139,0.1);color:#23d18b;border:1px solid rgba(35,209,139,0.2);}
+  .stock-preview.low{background:rgba(251,176,64,0.1);color:#fbb040;border:1px solid rgba(251,176,64,0.2);}
+  .stock-preview.out{background:rgba(240,71,71,0.1);color:#f04747;border:1px solid rgba(240,71,71,0.2);}
+  .dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
+  .dot.in{background:#23d18b;} .dot.low{background:#fbb040;} .dot.out{background:#f04747;}
+  .divider{border:none;border-top:1px solid rgba(56,189,248,0.08);margin:24px 0;}
+  .btn-save{width:100%;padding:14px;background:linear-gradient(135deg,#38bdf8,#0ea5e9);border:none;border-radius:12px;color:#070d14;font-size:16px;font-weight:800;cursor:pointer;transition:opacity .15s,transform .15s;letter-spacing:0.02em;}
+  .btn-save:hover{opacity:0.9;transform:translateY(-1px);}
+  .btn-save:active{transform:translateY(0);}
+  .toast{display:none;margin-top:14px;background:rgba(35,209,139,0.1);border:1px solid rgba(35,209,139,0.25);border-radius:10px;padding:12px 16px;text-align:center;color:#23d18b;font-size:14px;font-weight:600;}
+  .toast.show{display:block;animation:fadeIn .3s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .note{font-size:12px;color:#6a8fab;text-align:center;margin-top:14px;line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <img src="https://cdn.discordapp.com/attachments/1512883387759726613/1535142586208096417/4CEE82E6-F941-4FA8-8401-F036E983D7F8.png?ex=6a76b072&is=6a755ef2&hm=235b18e20a18400ad81eba9cdd85c0c5633fce6f2ab857a69774b36d52d67dbc&" style="width:34px;height:34px;border-radius:9px;object-fit:cover;filter:brightness(0) saturate(100%) invert(70%) sepia(80%) saturate(400%) hue-rotate(175deg) brightness(105%);" alt="logo">
+    <span>Kikscord</span>
+    <small>Stock Admin</small>
+  </div>
+
+  <h2>✏️ Edit Stock Numbers</h2>
+
+  <div class="field">
+    <label><b>⏳ 1M Trials</b><span class="price">$0.22 / token</span></label>
+    <input type="number" id="trials_1m" min="0" placeholder="0" oninput="updatePreview('trials_1m')">
+    <div id="prev_trials_1m" class="stock-preview in"><span class="dot in"></span><span id="txt_trials_1m">— in stock</span></div>
+  </div>
+
+  <div class="field">
+    <label><b>🔥 1M Nitro Tokens</b><span class="price">$0.35 / token</span></label>
+    <input type="number" id="nitro_1m" min="0" placeholder="0" oninput="updatePreview('nitro_1m')">
+    <div id="prev_nitro_1m" class="stock-preview in"><span class="dot in"></span><span id="txt_nitro_1m">— in stock</span></div>
+  </div>
+
+  <div class="field">
+    <label><b>✅ Real Aged Promos</b><span class="price">$0.11 / account</span></label>
+    <input type="number" id="aged_promos" min="0" placeholder="0" oninput="updatePreview('aged_promos')">
+    <div id="prev_aged_promos" class="stock-preview in"><span class="dot in"></span><span id="txt_aged_promos">— in stock</span></div>
+  </div>
+
+  <div class="field">
+    <label><b>⚡ EVs Fresh &lt;10h</b><span class="price">$0.05 / account</span></label>
+    <input type="number" id="evs_fresh" min="0" placeholder="0" oninput="updatePreview('evs_fresh')">
+    <div id="prev_evs_fresh" class="stock-preview in"><span class="dot in"></span><span id="txt_evs_fresh">— in stock</span></div>
+  </div>
+
+  <hr class="divider">
+
+  <button class="btn-save" onclick="saveStock()">💾 Save & Apply</button>
+  <div class="toast" id="toast">✅ Stock saved! Reload the store to see changes.</div>
+  <p class="note">Changes are saved to your browser. To make them permanent,<br>click Save then copy the numbers to <code>stockData</code> in the HTML.</p>
+</div>
+
+<script>
+  const BIN_ID = '6a75cbc4f5f4af5e29f773e5';
+  const API_KEY = '$2a$10$fi6vRAD9f5oPy7fdHrn1C..jNGmVUwEX3COJ1jTu1clj6JHeISdYG';
+  const KEYS = ['trials_1m','nitro_1m','aged_promos','evs_fresh'];
+
+  // Load current stock from JSONBin on open
+  fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+    headers: { 'X-Master-Key': API_KEY }
+  })
+  .then(r => r.json())
+  .then(res => {
+    const data = res.record;
+    KEYS.forEach(k => {
+      if(data[k] !== undefined){
+        document.getElementById(k).value = data[k];
+        updatePreview(k);
+      }
+    });
+  });
+
+  function updatePreview(id){
+    const val = parseInt(document.getElementById(id).value) || 0;
+    const prev = document.getElementById('prev_' + id);
+    const txt  = document.getElementById('txt_' + id);
+    const dot  = prev.querySelector('.dot');
+    prev.className = 'stock-preview ' + (val <= 0 ? 'out' : val <= 10 ? 'low' : 'in');
+    dot.className  = 'dot ' + (val <= 0 ? 'out' : val <= 10 ? 'low' : 'in');
+    txt.textContent = val <= 0 ? 'Out of Stock' : val + ' in stock';
+  }
+
+  function saveStock(){
+    const data = {};
+    KEYS.forEach(k => { data[k] = parseInt(document.getElementById(k).value) || 0; });
+
+    const btn = document.querySelector('.btn-save');
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
+
+    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': API_KEY
+      },
+      body: JSON.stringify(data)
+    })
+    .then(r => r.json())
+    .then(() => {
+      btn.textContent = '💾 Save & Apply';
+      btn.disabled = false;
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    })
+    .catch(() => {
+      btn.textContent = '💾 Save & Apply';
+      btn.disabled = false;
+      alert('Error saving. Check connection.');
+    });
+  }
+</script>
+</body>
+</html>
