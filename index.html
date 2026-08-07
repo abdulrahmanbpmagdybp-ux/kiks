@@ -863,6 +863,7 @@ function renderProducts(){
     // parse price number
     const priceNum = p.price.replace('$','');
     const priceParts = priceNum.split('.');
+    const decPart = priceParts[1] ? '<span class="pc-dec">.' + priceParts[1] + '</span>' : '';
     const tgMsg = ok
       ? 'Hi%2C%20I%20want%20to%20buy%20' + encodeURIComponent(p.name) + '%20(' + encodeURIComponent(p.price) + ')'
       : 'Hi%2C%20I%20want%20to%20pre-order%20' + encodeURIComponent(p.name);
