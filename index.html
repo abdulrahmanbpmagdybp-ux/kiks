@@ -584,14 +584,11 @@ const stockData = {
   evs_fresh:   { stock: 88 }
 };
 
-// Load from JSONBin — runs after all functions are defined
+// Load from stock.json on GitHub
 window.addEventListener('DOMContentLoaded', () => {
-  fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-    headers: { 'X-Master-Key': API_KEY }
-  })
+  fetch('stock.json?v=' + Date.now())
     .then(r => r.json())
-    .then(res => {
-      const data = res.record;
+    .then(data => {
       Object.keys(data).forEach(k => {
         if(stockData[k]) stockData[k].stock = data[k];
       });
