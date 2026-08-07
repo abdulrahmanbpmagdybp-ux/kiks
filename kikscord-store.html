@@ -578,20 +578,17 @@ const BIN_ID = '6a75cbc4f5f4af5e29f773e5';
 const API_KEY = '$2a$10$fi6vRAD9f5oPy7fdHrn1C..jNGmVUwEX3COJ1jTu1clj6JHeISdYG';
 
 const stockData = {
-  trials_1m:   { stock: 47 },
-  nitro_1m:    { stock: 31 },
-  aged_promos: { stock: 120 },
-  evs_fresh:   { stock: 88 }
+  trials_1m:   { stock: 1530 },
+  nitro_1m:    { stock: 0 },
+  aged_promos: { stock: 1200 },
+  evs_fresh:   { stock: 6500 }
 };
 
-// Load from JSONBin — runs after all functions are defined
+// Load from stock.json on GitHub
 window.addEventListener('DOMContentLoaded', () => {
-  fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-    headers: { 'X-Master-Key': API_KEY }
-  })
+  fetch('stock.json?v=' + Date.now())
     .then(r => r.json())
-    .then(res => {
-      const data = res.record;
+    .then(data => {
       Object.keys(data).forEach(k => {
         if(stockData[k]) stockData[k].stock = data[k];
       });
