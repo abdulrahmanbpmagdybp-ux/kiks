@@ -572,8 +572,11 @@ body > *:not(#particles-canvas){position:relative;z-index:1;}
 
 <script>
 /* ================================================================
-   ✏️  EDIT STOCK HERE — OR use admin.html for easy editing
+   ✏️  STOCK — loaded from JSONBin automatically
    ================================================================ */
+const BIN_ID = '6a75cbc4f5f4af5e29f773e5';
+const API_KEY = '$2a$10$fi6vRAD9f5oPy7fdHrn1C..jNGmVUwEX3COJ1jTu1clj6JHeISdYG';
+
 const stockData = {
   trials_1m:   { stock: 47 },
   nitro_1m:    { stock: 31 },
@@ -581,10 +584,20 @@ const stockData = {
   evs_fresh:   { stock: 88 }
 };
 
-// Load from admin panel if saved
-['trials_1m','nitro_1m','aged_promos','evs_fresh'].forEach(k => {
-  const v = localStorage.getItem('stock_' + k);
-  if(v !== null) stockData[k].stock = parseInt(v);
+// Load from JSONBin — runs after all functions are defined
+window.addEventListener('DOMContentLoaded', () => {
+  fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+    headers: { 'X-Master-Key': API_KEY }
+  })
+    .then(r => r.json())
+    .then(res => {
+      const data = res.record;
+      Object.keys(data).forEach(k => {
+        if(stockData[k]) stockData[k].stock = data[k];
+      });
+      renderProducts();
+    })
+    .catch(() => renderProducts());
 });
 
 const products = [
@@ -624,7 +637,6 @@ function renderProducts(){
     grid.appendChild(card);
   });
 }
-renderProducts();
 
 /* ================================================================
    PARTICLES
