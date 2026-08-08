@@ -367,25 +367,46 @@ footer{border-top:1px solid var(--border);padding:56px 0 28px;}
   position:fixed;inset:0;z-index:9999;
   background:#070d14;
   display:flex;align-items:center;justify-content:center;
-  transition:opacity 0.6s ease, visibility 0.6s ease;
+  transition:opacity 0.8s ease, visibility 0.8s ease;
 }
-#loader.hide{opacity:0;visibility:hidden;}
-.loader-inner{display:flex;flex-direction:column;align-items:center;gap:16px;}
+#loader.hide{opacity:0;visibility:hidden;pointer-events:none;}
+.loader-inner{display:flex;flex-direction:column;align-items:center;gap:20px;}
 .loader-logo{
-  font-family:var(--font);font-weight:900;font-size:52px;color:#fff;
-  text-shadow:0 0 30px rgba(56,189,248,0.8), 0 0 60px rgba(56,189,248,0.4);
-  animation:logoGlow 1.5s ease-in-out infinite;
+  font-family:var(--font);font-weight:900;font-size:56px;color:#fff;
+  letter-spacing:-0.02em;
+  text-shadow:0 0 20px rgba(56,189,248,0.5),0 0 40px rgba(56,189,248,0.25);
+  animation:logoGlow 1.8s ease-in-out infinite;
+  line-height:1;
 }
 @keyframes logoGlow{
-  0%,100%{text-shadow:0 0 20px rgba(56,189,248,0.6),0 0 40px rgba(56,189,248,0.3);}
-  50%{text-shadow:0 0 40px rgba(56,189,248,1),0 0 80px rgba(56,189,248,0.6),0 0 120px rgba(56,189,248,0.3);}
+  0%,100%{text-shadow:0 0 15px rgba(56,189,248,0.4),0 0 30px rgba(56,189,248,0.15);}
+  50%{text-shadow:0 0 35px rgba(56,189,248,1),0 0 70px rgba(56,189,248,0.5),0 0 100px rgba(56,189,248,0.2);}
 }
 .loader-name{
-  font-family:var(--mono);font-size:13px;letter-spacing:.35em;
-  color:var(--accent);text-transform:uppercase;
+  font-family:var(--mono);font-size:14px;letter-spacing:.4em;
+  color:rgba(56,189,248,0.8);text-transform:uppercase;
+  margin-top:-8px;
 }
-.loader-bar-wrap{width:180px;height:2px;background:rgba(56,189,248,0.15);border-radius:100px;overflow:hidden;}
-.loader-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#7dd3fc);border-radius:100px;transition:width .05s linear;}
+.loader-bar-wrap{
+  width:200px;height:1px;
+  background:rgba(255,255,255,0.08);
+  border-radius:100px;overflow:hidden;
+}
+.loader-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,rgba(56,189,248,0.4),rgba(56,189,248,0.9),rgba(56,189,248,0.4));
+  border-radius:100px;
+  transition:width .05s linear;
+}
+.loader-logo-img{
+  width:72px;height:72px;border-radius:18px;object-fit:cover;
+  filter:drop-shadow(0 0 20px rgba(56,189,248,0.6)) drop-shadow(0 0 40px rgba(56,189,248,0.3));
+  animation:logoImgGlow 1.8s ease-in-out infinite;
+}
+@keyframes logoImgGlow{
+  0%,100%{filter:drop-shadow(0 0 12px rgba(56,189,248,0.5)) drop-shadow(0 0 24px rgba(56,189,248,0.2));}
+  50%{filter:drop-shadow(0 0 28px rgba(56,189,248,1)) drop-shadow(0 0 56px rgba(56,189,248,0.5));}
+}
 
 /* ============================================================
    HOW IT WORKS V2 — BOOSTCORD STYLE
@@ -509,7 +530,7 @@ body > *:not(#particles-canvas){position:relative;z-index:1;}
 <!-- LOADING SCREEN -->
 <div id="loader">
   <div class="loader-inner">
-    <div class="loader-logo">K</div>
+    <img src="https://cdn.discordapp.com/attachments/1512883387759726613/1535145825246908416/image.png?ex=6a76b376&is=6a7561f6&hm=a959c3fbec0bde21e733d1af681657315a3222ba92eb991b32836a0140ae5740&" class="loader-logo-img" alt="K" />
     <div class="loader-name">KIKSCORD</div>
     <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
   </div>
