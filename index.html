@@ -834,30 +834,16 @@ body > *:not(#particles-canvas){position:relative;z-index:1;}
 
 <script>
 /* ================================================================
-   ✏️  STOCK — loaded from JSONBin automatically
+   ✏️  EDIT STOCK HERE — change the numbers, upload index.html to GitHub
    ================================================================ */
-const BIN_ID = '6a75cbc4f5f4af5e29f773e5';
-const API_KEY = '$2a$10$fi6vRAD9f5oPy7fdHrn1C..jNGmVUwEX3COJ1jTu1clj6JHeISdYG';
-
 const stockData = {
-  trials_1m:   { stock: 1530 },
+  trials_1m:   { stock: 16700 },
   nitro_1m:    { stock: 0 },
-  aged_promos: { stock: 1200 },
-  evs_fresh:   { stock: 6500 }
+  aged_promos: { stock: 0 },
+  evs_fresh:   { stock: 6000 }
 };
 
-// Load from stock.json on GitHub
-window.addEventListener('DOMContentLoaded', () => {
-  fetch('stock.json?v=' + Date.now())
-    .then(r => r.json())
-    .then(data => {
-      Object.keys(data).forEach(k => {
-        if(stockData[k]) stockData[k].stock = data[k];
-      });
-      renderProducts();
-    })
-    .catch(() => renderProducts());
-});
+window.addEventListener('DOMContentLoaded', () => { renderProducts(); });
 
 const products = [
   { id:"trials_1m",  badge:{text:"⏳ Trials",cls:"b-new"},  name:"1M Trials",       type:"Discord Trial Tokens",    price:"$0.22", perUnit:"per token",   features:["No cap · No lock","1 Month trial","Fully automated","Instant delivery"], hot:false },
