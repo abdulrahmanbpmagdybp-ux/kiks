@@ -51,7 +51,8 @@ header{position:sticky;top:0;z-index:200;background:rgba(9,9,15,0.82);backdrop-f
 nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;}
 .logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;letter-spacing:-0.02em;}
 .logo-img{
-  width:34px;height:34px;border-radius:9px;object-fit:cover;
+  width:38px;height:38px;border-radius:10px;object-fit:cover;
+  filter:drop-shadow(0 0 8px rgba(56,189,248,0.5));
 }
 .nav-links{display:flex;gap:28px;font-size:14px;color:var(--muted2);}
 .nav-links a:hover{color:var(--text);}
@@ -530,7 +531,7 @@ body > *:not(#particles-canvas){position:relative;z-index:1;}
 <!-- LOADING SCREEN -->
 <div id="loader">
   <div class="loader-inner">
-    <img src="https://cdn.discordapp.com/attachments/1512883387759726613/1535145825246908416/image.png?ex=6a76b376&is=6a7561f6&hm=a959c3fbec0bde21e733d1af681657315a3222ba92eb991b32836a0140ae5740&" class="loader-logo-img" alt="K" />
+    <img src="https://media.discordapp.net/attachments/1503117660123172909/1537675582937235476/b39a43ec-550c-490f-8945-4ea5c335b4af_1.gif?ex=6a7fe77b&is=6a7e95fb&hm=a55b6884c089928fa1e64429aefa5067af28b818410e6ac999f5aa03632b9d03&=" class="loader-logo-img" alt="K" />
     <div class="loader-name">KIKSCORD</div>
     <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
   </div>
@@ -563,7 +564,7 @@ body > *:not(#particles-canvas){position:relative;z-index:1;}
   <div class="wrap">
     <nav>
       <div class="logo">
-        <img src="https://cdn.discordapp.com/attachments/1512883387759726613/1535145825246908416/image.png?ex=6a76b376&is=6a7561f6&hm=a959c3fbec0bde21e733d1af681657315a3222ba92eb991b32836a0140ae5740&" alt="Kikscord Logo" class="logo-img">
+        <img src="https://media.discordapp.net/attachments/1503117660123172909/1537675582937235476/b39a43ec-550c-490f-8945-4ea5c335b4af_1.gif?ex=6a7fe77b&is=6a7e95fb&hm=a55b6884c089928fa1e64429aefa5067af28b818410e6ac999f5aa03632b9d03&=" alt="Kikscord Logo" class="logo-img">
         Kikscord
       </div>
       <ul class="nav-links">
@@ -794,7 +795,7 @@ body > *:not(#particles-canvas){position:relative;z-index:1;}
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <div class="logo" style="margin-bottom:10px;"><img src="https://cdn.discordapp.com/attachments/1512883387759726613/1535145825246908416/image.png?ex=6a76b376&is=6a7561f6&hm=a959c3fbec0bde21e733d1af681657315a3222ba92eb991b32836a0140ae5740&" alt="Kikscord Logo" class="logo-img">Kikscord</div>
+        <div class="logo" style="margin-bottom:10px;"><img src="https://media.discordapp.net/attachments/1503117660123172909/1537675582937235476/b39a43ec-550c-490f-8945-4ea5c335b4af_1.gif?ex=6a7fe77b&is=6a7e95fb&hm=a55b6884c089928fa1e64429aefa5067af28b818410e6ac999f5aa03632b9d03&=" alt="Kikscord Logo" class="logo-img">Kikscord</div>
         <div class="foot-desc">Premium Discord tokens, trials & accounts. No cap, no lock, direct from seller. Crypto only.</div>
       </div>
       <div>
@@ -837,7 +838,7 @@ body > *:not(#particles-canvas){position:relative;z-index:1;}
    ✏️  EDIT STOCK HERE — change the numbers, upload index.html to GitHub
    ================================================================ */
 const stockData = {
-  trials_1m:   { stock: 0 },
+  trials_1m:   { stock: 1950 },
   nitro_1m:    { stock: 0 },
   aged_promos: { stock: 0 },
   evs_fresh:   { stock: 0 }
@@ -993,6 +994,7 @@ document.querySelectorAll(".faq-item").forEach(item=>{
 </script>
 </body>
 </html>
+
 
 
 
